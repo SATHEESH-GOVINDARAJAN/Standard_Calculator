@@ -109,12 +109,12 @@ void handle_multiplication(void) {
 }
 
 void handle_division(void) {
-    float num1, num2, result;
-    printf("\n--- Division Module ---\n");
+   double num1, num2, result; // Upgraded from float to double for scientific accuracy
+    printf("\n--- High-Precision Division Module ---\n");
     printf("Enter numerator: ");
-    scanf("%f", &num1);
+    scanf("%lf", &num1); // %lf is the format specifier for double
     printf("Enter denominator: ");
-    scanf("%f", &num2);
+    scanf("%lf", &num2);
     
     if (num2 == 0) {
         printf("Error: Mathematical contradiction. Division by zero is undefined.\n");
@@ -122,7 +122,7 @@ void handle_division(void) {
     }
     
     result = num1 / num2;
-    printf("Result: %.2f\n", result);
+    printf("Result: %.6f\n", result);
 }
 void handle_power(void) {
     double base, exponent, result;
