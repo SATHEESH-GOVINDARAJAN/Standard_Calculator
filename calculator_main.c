@@ -5,6 +5,8 @@ void display_menu(void);
 int get_user_selection(void);
 void handle_addition(void);
 void handle_subtraction(void);
+void handle_multiplication(void);
+void handle_division(void);
 
 int main() {
     int selection;
@@ -12,13 +14,18 @@ int main() {
     display_menu();
     selection = get_user_selection();
 
-    // Structural routing based on user input
     switch (selection) {
         case 1:
             handle_addition();
             break;
         case 2:
             handle_subtraction();
+            break;
+        case 3:
+            handle_multiplication();
+            break;
+        case 4:
+            handle_division();
             break;
         case 0:
             printf("Exiting application cleanly.\n");
@@ -53,10 +60,6 @@ int get_user_selection(void) {
     return choice;
 }
 
-/**
- * Math Logic Modules
- * Keeping operations isolated inside individual functions
- */
 void handle_addition(void) {
     float num1, num2, result;
     printf("\n--- Addition Module ---\n");
@@ -64,7 +67,6 @@ void handle_addition(void) {
     scanf("%f", &num1);
     printf("Enter second number: ");
     scanf("%f", &num2);
-    
     result = num1 + num2;
     printf("Result: %.2f\n", result);
 }
@@ -76,7 +78,34 @@ void handle_subtraction(void) {
     scanf("%f", &num1);
     printf("Enter second number: ");
     scanf("%f", &num2);
-    
     result = num1 - num2;
+    printf("Result: %.2f\n", result);
+}
+
+void handle_multiplication(void) {
+    float num1, num2, result;
+    printf("\n--- Multiplication Module ---\n");
+    printf("Enter first number: ");
+    scanf("%f", &num1);
+    printf("Enter second number: ");
+    scanf("%f", &num2);
+    result = num1 * num2;
+    printf("Result: %.2f\n", result);
+}
+
+void handle_division(void) {
+    float num1, num2, result;
+    printf("\n--- Division Module ---\n");
+    printf("Enter numerator: ");
+    scanf("%f", &num1);
+    printf("Enter denominator: ");
+    scanf("%f", &num2);
+    
+    if (num2 == 0) {
+        printf("Error: Mathematical contradiction. Division by zero is undefined.\n");
+        return;
+    }
+    
+    result = num1 / num2;
     printf("Result: %.2f\n", result);
 }
