@@ -8,7 +8,8 @@ void handle_addition(void);
 void handle_subtraction(void);
 void handle_multiplication(void);
 void handle_division(void);
-void handle_power(void); // Our new scientific feature
+void handle_power(void); 
+void handle_sqrt(void); // New square root prototype
 
 int main() {
     int selection;
@@ -32,8 +33,10 @@ int main() {
         case 4:
             handle_division();
             break;
-        case 5: handle_power(); // Routing to power function
+        case 5: handle_power();
             break; 
+        case 6: handle_sqrt(); 
+            break; // New route for square root
         case 0:
             printf("Exiting application cleanly.\n");
             break;
@@ -60,14 +63,15 @@ void display_menu(void) {
     printf("2. Subtraction\n");
     printf("3. Multiplication\n");
     printf("4. Division\n");
-    printf("5. Power (x^y)\n"); // Menu option updated
+    printf("5. Power (x^y)\n");
+    printf("6. Square Root \n"); // Menu option updated
     printf("0. Exit\n");
     printf("================================\n");
 }
 
 int get_user_selection(void) {
     int choice;
-    printf("Select an operation [0-5]: ");
+    printf("Select an operation [0-6]: ");  // range extended
     if (scanf("%d", &choice) != 1) {
         printf("Error: Invalid input detected.\n");
         return -1; 
@@ -135,4 +139,20 @@ void handle_power(void) {
     // Using the standard math.h function
     result = pow(base, exponent);
     printf("Result: %.4f\n", result);
+}
+
+void handle_sqrt(void) {
+    double num, result;
+    printf("\n--- Square Root Module ---\n");
+    printf("Enter number: ");
+    scanf("%lf", &num);
+    
+    /* Critical Hardware Safeguard: Intercepting domain errors */
+    if (num < 0) {
+        printf("Error: Domain violation. Square root of a negative number yields imaginary values.\n");
+        return; // Exit the function safely without computing
+    }
+    
+    result = sqrt(num);
+    printf("Result: %.6f\n", result); // Maintained our high-precision 6-digit standard
 }
