@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <math.h>
 
+/* Engineering Constants */
+#define PI 3.14159265358979323846
+
 /* Function Prototypes */
 void display_menu(void);
 int get_user_selection(void);
@@ -9,7 +12,10 @@ void handle_subtraction(void);
 void handle_multiplication(void);
 void handle_division(void);
 void handle_power(void); 
-void handle_sqrt(void); // New square root prototype
+void handle_sqrt(void);
+void handle_sine(void);    // New prototype
+void handle_cosine(void);  // New prototype
+void handle_tangent(void); // New prototype
 
 int main() {
     int selection;
@@ -36,7 +42,13 @@ int main() {
         case 5: handle_power();
             break; 
         case 6: handle_sqrt(); 
-            break; // New route for square root
+            break;
+        case 7: handle_sine(); 
+            break;   // New route
+        case 8: handle_cosine(); 
+            break; // New route
+        case 9: handle_tangent(); 
+            break;// New route
         case 0:
             printf("Exiting application cleanly.\n");
             break;
@@ -64,14 +76,18 @@ void display_menu(void) {
     printf("3. Multiplication\n");
     printf("4. Division\n");
     printf("5. Power (x^y)\n");
-    printf("6. Square Root \n"); // Menu option updated
+    printf("6. Square Root \n"); 
+    printf("7. Sine (sin x) \n");
+    printf("8. Cosine (cos x) \n");
+    printf("9. Tangent (tan x) \n");
+
     printf("0. Exit\n");
     printf("================================\n");
 }
 
 int get_user_selection(void) {
     int choice;
-    printf("Select an operation [0-6]: ");  // range extended
+    printf("Select an operation [0-9]: ");  // range extended
     if (scanf("%d", &choice) != 1) {
         printf("Error: Invalid input detected.\n");
         return -1; 
@@ -155,4 +171,48 @@ void handle_sqrt(void) {
     
     result = sqrt(num);
     printf("Result: %.6f\n", result); // Maintained our high-precision 6-digit standard
+}
+
+void handle_sine(void) {
+    double degrees, radians, result;
+    printf("\n--- Sine Module (sin x) ---\n");
+    printf("Enter angle in degrees: ");
+    scanf("%lf", &degrees);
+    
+    // Converting degrees to radians for math.h
+    radians = degrees * (PI / 180.0);
+    result = sin(radians);
+    
+    printf("Result: %.6f\n", result);
+}
+
+void handle_cosine(void) {
+    double degrees, radians, result;
+    printf("\n--- Cosine Module (cos x) ---\n");
+    printf("Enter angle in degrees: ");
+    scanf("%lf", &degrees);
+    
+    radians = degrees * (PI / 180.0);
+    result = cos(radians);
+    
+    printf("Result: %.6f\n", result);
+}
+
+void handle_tangent(void) {
+    double degrees, radians, result;
+    printf("\n--- Tangent Module (tan x) ---\n");
+    printf("Enter angle in degrees: ");
+    scanf("%lf", &degrees);
+    
+    /* Critical Mathematical Safeguard */
+    // Tangent is undefined at 90, 270, etc. (odd multiples of 90)
+    if (fmod(degrees - 90.0, 180.0) == 0.0) {
+        printf("Error: Mathematical contradiction. Tangent of %.1f degrees is undefined (Infinity).\n", degrees);
+        return;
+    }
+    
+    radians = degrees * (PI / 180.0);
+    result = tan(radians);
+    
+    printf("Result: %.6f\n", result);
 }
